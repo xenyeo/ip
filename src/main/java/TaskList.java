@@ -4,7 +4,6 @@
 public class TaskList {
     private final Task[] list = new Task[100];
     private int id = 0;
-    UI ui = new UI();
 
     /**
      * Adds a new task to the task list.
@@ -19,12 +18,29 @@ public class TaskList {
      * Prints all tasks currently stored in the task list.
      */
     public void printTasks() {
-        ui.printSeparator();
+        System.out.println(UI.SEPARATOR);
+        System.out.println(UI.INDENTATION + "Here are the current tasks in your list:");
         for (int i = 0; i < id; i++) {
-            ui.printIndentation();
-            System.out.print((i+1) + ". " + list[i]);
-            System.out.println();
+            System.out.println(UI.INDENTATION + (i+1) + ". " + list[i].toString());
         }
-        ui.printSeparator();
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public void markTask(int taskId) {
+        Task currentTask = list[taskId - 1];
+        currentTask.markTask();
+        System.out.println(UI.SEPARATOR);
+        System.out.println(UI.INDENTATION + "Well Done! This task is now done:");
+        System.out.println(UI.INDENTATION + currentTask.toString());
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public void unmarkTask(int taskId) {
+        Task currentTask = list[taskId - 1];
+        currentTask.unmarkTask();
+        System.out.println(UI.SEPARATOR);
+        System.out.println(UI.INDENTATION + "Task is now unmarked as not done yet:");
+        System.out.println(UI.INDENTATION + currentTask.toString());
+        System.out.println(UI.SEPARATOR);
     }
 }

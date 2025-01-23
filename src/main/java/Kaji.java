@@ -14,6 +14,10 @@ public class Kaji {
                 ui.end();
             } else if (command.equals("list")) {
                 taskList.printTasks();
+            } else if (command.split(" ")[0].equals("mark")) {
+                taskList.markTask(Integer.parseInt(command.split(" ")[1]));
+            } else if (command.split(" ")[0].equals("unmark")) {
+                taskList.unmarkTask(Integer.parseInt(command.split(" ")[1]));
             } else {
                 taskList.addTask(command);
                 ui.echo(command);

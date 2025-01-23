@@ -45,27 +45,28 @@ public class UI {
      */
     public void start() {
         printLogo();
-        printSeparator();
+        System.out.println(SEPARATOR);
         printGreeting();
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 
     /**
      * Terminates the user interface for the KAJI virtual assistant.
      */
     public void end() {
-        printSeparator();
+        System.out.println(SEPARATOR);
         printExit();
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 
     /**
      * Echos command enter by user.
+     *
      * @param command the text message to be printed
      */
     public void echo(String command) {
-        printSeparator();
+        System.out.println(SEPARATOR);
         System.out.println(INDENTATION + "added: " + command);
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 }
