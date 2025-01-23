@@ -2,7 +2,7 @@
  * Represents a simple task list that allows adding and viewing tasks.
  */
 public class TaskList {
-    private final String[] list = new String[100];
+    private final Task[] list = new Task[100];
     private int id = 0;
     UI ui = new UI();
 
@@ -11,7 +11,7 @@ public class TaskList {
      * @param task the task to be added to the task list
      */
     public void addTask(String task) {
-        list[id] = task;
+        list[id] = new Task(task);
         id++;
     }
 
