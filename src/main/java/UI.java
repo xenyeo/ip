@@ -79,7 +79,7 @@ public class UI {
      */
     public void echo(String command) {
         printSeparator();
-        System.out.println(INDENTATION + command);
+        System.out.println(INDENTATION + "added: " + command);
         printSeparator();
     }
 }
