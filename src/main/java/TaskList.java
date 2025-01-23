@@ -8,10 +8,10 @@ public class TaskList {
 
     /**
      * Adds a new task to the task list.
-     * @param task the task to be added to the task list
+     * @param description the task to be added to the task list
      */
-    public void addTask(String task) {
-        list[id] = new Task(task);
+    public void addTask(String description) {
+        list[id] = new Task(description);
         id++;
     }
 
@@ -20,9 +20,9 @@ public class TaskList {
      */
     public void printTasks() {
         ui.printSeparator();
-        for (int i = 1; i <= id; i++) {
+        for (int i = 0; i < id; i++) {
             ui.printIndentation();
-            System.out.print(i + ". " + list[i]);
+            System.out.print((i+1) + ". " + list[i]);
             System.out.println();
         }
         ui.printSeparator();
