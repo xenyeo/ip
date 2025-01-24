@@ -10,17 +10,34 @@ public class Kaji {
         String command = "";
         while (!command.equals("bye")) {
             command = sc.nextLine();
-            if (command.equals("bye")) {
-                ui.end();
-            } else if (command.equals("list")) {
-                taskList.printTasks();
-            } else if (command.split(" ")[0].equals("mark")) {
-                taskList.markTask(Integer.parseInt(command.split(" ")[1]));
-            } else if (command.split(" ")[0].equals("unmark")) {
-                taskList.unmarkTask(Integer.parseInt(command.split(" ")[1]));
-            } else {
-                taskList.addTask(command);
-                ui.echo(command);
+            String[] commandParts = command.split(" ", 2);
+            String action = commandParts[0];
+
+            switch (action) {
+                case "bye":
+                    ui.end();
+                    break;
+                case "list":
+                    taskList.printTasks();
+                    break;
+                case "mark":
+                    taskList.markTask(Integer.parseInt(commandParts[1]));
+                    break;
+                case "unmark":
+                    taskList.unmarkTask(Integer.parseInt(commandParts[1]));
+                    break;
+                case "todo":
+                    taskList.addTask(commandParts[1], "T");
+                    break;
+                case "deadline":
+                    taskList.addTask(commandParts[1], "D");
+                    break;
+                case "event":
+                    taskList.addTask(commandParts[1], "E");
+                    break;
+                default:
+                    ui.echo(command);
+                    break;
             }
         }
         sc.close();
