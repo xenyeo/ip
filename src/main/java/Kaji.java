@@ -61,6 +61,15 @@ public class Kaji {
                             taskList.addTask(commandParts[1], "E");
                         }
                     }
+                    case "delete" -> {
+                        if (commandParts.length == 1) {
+                            throw new InvalidDeleteCommandException("Invalid mark command");
+                        } else if (!commandParts[1].matches("\\d+")) {
+                            throw new InvalidTaskListNumberException("Invalid task list number");
+                        } else {
+                            taskList.deleteTask(Integer.parseInt(commandParts[1]));
+                        }
+                    }
                     default -> throw new InvalidCommandException("Invalid Command: " + command);
                 }
             } catch (InvalidCommandException e) {
@@ -93,6 +102,10 @@ public class Kaji {
                 System.out.println(UI.SEPARATOR);
                 System.out.println(UI.INDENTATION + "Task number needs to be an integer");
                 System.out.println(UI.SEPARATOR);
+            } catch (InvalidDeleteCommandException e) {
+                System.out.println(UI.SEPARATOR);
+                System.out.println(UI.INDENTATION + "Usage: delete <task number>\n"
+                        + UI.INDENTATION + "Type list for task numbers");                System.out.println(UI.SEPARATOR);
             }
         }
         sc.close();
