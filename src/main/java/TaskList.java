@@ -10,14 +10,25 @@ public class TaskList {
      * @param description the task to be added to the task list
      */
     public void addTask(String description, String type) {
-        if (type.equals("T")) {
-            list[id] = new ToDo(description, type);
-        } else if (type.equals("D")) {
-            list[id] = new Deadline(description, type);
-        } else if (type.equals("E")) {
-            list[id] = new Event(description, type);
+        System.out.println(UI.SEPARATOR);
+        System.out.println(UI.INDENTATION + "This task has been added:");
+        switch (type) {
+            case "T" -> list[id] = new ToDo(description, type);
+            case "D" -> {
+                String[] descriptionParts = description.split(" /by ");
+                list[id] = new Deadline(descriptionParts[0], type, descriptionParts[1]);
+            }
+            case "E" -> {
+                String[] descriptionParts = description.split(" /from ");
+                String[] range = descriptionParts[1].split(" /to ");
+                list[id] = new Event(descriptionParts[0], type, range[0], range[1]);
+            }
         }
+        System.out.println(UI.INDENTATION + " " + list[id].toString());
         id++;
+        String taskWord = (id == 1) ? "task" : "tasks";
+        System.out.println(UI.INDENTATION + "There are now " + id + " " + taskWord + " in your list.");
+        System.out.println(UI.SEPARATOR);
     }
 
     /**
@@ -32,6 +43,11 @@ public class TaskList {
         System.out.println(UI.SEPARATOR);
     }
 
+    /**
+     * Marks a task as completed based on the specified task ID.
+     *
+     * @param taskId the ID of the task to be marked as completed
+     */
     public void markTask(int taskId) {
         Task currentTask = list[taskId - 1];
         currentTask.markTask();
@@ -41,6 +57,11 @@ public class TaskList {
         System.out.println(UI.SEPARATOR);
     }
 
+    /**
+     * Marks a task as uncompleted based on the specified task ID.
+     *
+     * @param taskId the ID of the task to be marked as uncompleted
+     */
     public void unmarkTask(int taskId) {
         Task currentTask = list[taskId - 1];
         currentTask.unmarkTask();

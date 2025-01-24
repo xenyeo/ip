@@ -14,31 +14,15 @@ public class Kaji {
             String action = commandParts[0];
 
             switch (action) {
-                case "bye":
-                    ui.end();
-                    break;
-                case "list":
-                    taskList.printTasks();
-                    break;
-                case "mark":
-                    taskList.markTask(Integer.parseInt(commandParts[1]));
-                    break;
-                case "unmark":
-                    taskList.unmarkTask(Integer.parseInt(commandParts[1]));
-                    break;
-                case "todo":
-                    taskList.addTask(commandParts[1], "T");
-                    break;
-                case "deadline":
-                    taskList.addTask(commandParts[1], "D");
-                    break;
-                case "event":
-                    taskList.addTask(commandParts[1], "E");
-                    break;
-                default:
-                    ui.echo(command);
-                    break;
+                case "bye" -> ui.end();
+                case "list" -> taskList.printTasks();
+                case "mark" -> taskList.markTask(Integer.parseInt(commandParts[1]));
+                case "unmark" -> taskList.unmarkTask(Integer.parseInt(commandParts[1]));
+                case "todo" -> taskList.addTask(commandParts[1], "T");
+                case "deadline" -> taskList.addTask(commandParts[1], "D");
+                case "event" -> taskList.addTask(commandParts[1], "E");
             }
+
         }
         sc.close();
     }

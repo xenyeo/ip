@@ -2,8 +2,8 @@
  * Represents the user interface functionalities for the KAJI virtual assistant.
  */
 public class UI {
-    public static final String INDENTATION = "    ";
-    public static final String SEPARATOR = INDENTATION + "____________________________________________________________";
+    protected static final String INDENTATION = "    ";
+    protected static final String SEPARATOR = INDENTATION + "____________________________________________________________";
     // Logo design adapted from https://patorjk.com/software/taag
     private static final String LOGO = INDENTATION
             + "    )               (\n"
@@ -56,17 +56,6 @@ public class UI {
     public void end() {
         System.out.println(SEPARATOR);
         printExit();
-        System.out.println(SEPARATOR);
-    }
-
-    /**
-     * Echos command enter by user.
-     *
-     * @param command the text message to be printed
-     */
-    public void echo(String command) {
-        System.out.println(SEPARATOR);
-        System.out.println(INDENTATION + "added: " + command);
         System.out.println(SEPARATOR);
     }
 }
