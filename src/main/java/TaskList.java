@@ -9,8 +9,14 @@ public class TaskList {
      * Adds a new task to the task list.
      * @param description the task to be added to the task list
      */
-    public void addTask(String description) {
-        list[id] = new Task(description);
+    public void addTask(String description, String type) {
+        if (type.equals("T")) {
+            list[id] = new ToDo(description, type);
+        } else if (type.equals("D")) {
+            list[id] = new Deadline(description, type);
+        } else if (type.equals("E")) {
+            list[id] = new Event(description, type);
+        }
         id++;
     }
 
