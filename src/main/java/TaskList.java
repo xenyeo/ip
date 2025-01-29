@@ -1,5 +1,7 @@
 import Exceptions.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -156,5 +158,20 @@ public class TaskList {
                     + UI.INDENTATION + "Type list for more information.");
             System.out.println(UI.SEPARATOR);
         }
+    }
+
+    /**
+     * Converts a date and time string from one format to another.
+     * The input date and time string is expected to be in the format "d/M/yyyy HHmm".
+     * The output date and time string is formatted as "MMM dd yyyy HHmm".
+     *
+     * @param dateTime the date and time string to be converted, expected in the format "d/M/yyyy HHmm"
+     * @return the converted date and time string in the format "MMM dd yyyy HHmm"
+     */
+    public static String convertDateTime(String dateTime) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        LocalDateTime formattedDateTime = LocalDateTime.parse(dateTime, inputFormatter);
+        return formattedDateTime.format(outputFormatter);
     }
 }
