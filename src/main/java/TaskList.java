@@ -17,15 +17,15 @@ public class TaskList {
         System.out.println(UI.SEPARATOR);
         System.out.println(UI.INDENTATION + "This task has been added:");
         switch (type) {
-            case "T" -> list.add(new ToDo(description, type));
+            case "T" -> list.add(new ToDo(type, false, description));
             case "D" -> {
                 String[] descriptionParts = description.split(" /by ");
-                list.add(new Deadline(descriptionParts[0], type, descriptionParts[1]));
+                list.add(new Deadline(type, false, descriptionParts[0], descriptionParts[1]));
             }
             case "E" -> {
                 String[] descriptionParts = description.split(" /from ");
                 String[] range = descriptionParts[1].split(" /to ");
-                list.add(new Event(descriptionParts[0], type, range[0], range[1]));
+                list.add(new Event(type, false, descriptionParts[0], range[0], range[1]));
             }
         }
         System.out.println(UI.INDENTATION + " " + list.get(list.size() - 1).toString());
@@ -42,9 +42,9 @@ public class TaskList {
     public void addTask(String description) {
         String[] parts = description.split(" \\| ");
         switch (parts[0]) {
-            case "T" -> list.add(new ToDo(parts[0], parts[1]));
-            case "D" -> list.add(new Deadline(parts[0], parts[1], parts[2]));
-            case "E" -> list.add(new Event(parts[0], parts[1], parts[2], parts[3]));
+            case "T" -> list.add(new ToDo(parts[0], Boolean.getBoolean(parts[1]), parts[2]));
+            case "D" -> list.add(new Deadline(parts[0], Boolean.getBoolean(parts[1]), parts[2], parts[3]));
+            case "E" -> list.add(new Event(parts[0], Boolean.getBoolean(parts[1]), parts[2], parts[3], parts[4]));
         }
     }
 

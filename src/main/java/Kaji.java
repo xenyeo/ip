@@ -6,7 +6,10 @@ public class Kaji {
     public static void main(String[] args) {
         UI ui = new UI();
         TaskList taskList = new TaskList();
+        Storage storage = new Storage();
+
         ui.start();
+        storage.loadTasks(taskList);
 
         Scanner sc = new Scanner(System.in);
         String command = "";
@@ -108,6 +111,9 @@ public class Kaji {
                         + UI.INDENTATION + "Type list for task numbers");                System.out.println(UI.SEPARATOR);
             }
         }
+
+        storage.saveTasks(taskList);
+
         sc.close();
     }
 }

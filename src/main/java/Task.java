@@ -3,10 +3,10 @@ public class Task {
     protected boolean isDone;
     protected String type;
 
-    public Task(String description, String type) {
-        this.description = description;
-        this.isDone = false;
+    public Task(String type, boolean isDone, String description) {
         this.type = type;
+        this.isDone = false;
+        this.description = description;
     }
 
     /**

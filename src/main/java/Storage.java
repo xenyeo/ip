@@ -21,8 +21,7 @@ public class Storage {
                 System.out.println("Error creating file: " + e.getMessage());
             }
         } else {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
                 String line;
                 while ((line = reader.readLine()) != null) {
                     taskList.addTask(line);
@@ -39,7 +38,8 @@ public class Storage {
      * @param taskList the task list containing tasks to be saved
      */
     public void saveTasks(TaskList taskList) {
-        for (Task task : taskList.list) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : taskList.list) {
             String taskString = "";
             if (task.type.equals("T")) {
                 taskString = task.type + " | " + task.isDone + " | " + task.description;
@@ -52,13 +52,11 @@ public class Storage {
                 Event e = (Event) task;
                 taskString = task.type + " | " + task.isDone + " | " + task.description + " | " + e.start + " | " + e.end;
             }
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-                writer.write(taskString);
-                writer.newLine();
-            } catch (IOException e) {
-                System.out.println("Error writing to file: " + e.getMessage());
+            writer.write(taskString);
+            writer.newLine();
             }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 }
