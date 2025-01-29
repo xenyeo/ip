@@ -89,7 +89,7 @@ public class Kaji {
                 System.out.println(UI.SEPARATOR);
             } catch (InvalidEventCommandException e) {
                 System.out.println(UI.SEPARATOR);
-                System.out.println(UI.INDENTATION + "Usage: event <task> /from <start> /to <end>");
+                System.out.println(UI.INDENTATION + "Usage: event <task> /from dd/mm/yyyy HHmm /to dd/mm/yyyy HHmm");
                 System.out.println(UI.SEPARATOR);
             } catch (InvalidMarkCommandException e) {
                 System.out.println(UI.SEPARATOR);
