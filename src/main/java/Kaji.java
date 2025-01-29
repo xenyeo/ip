@@ -85,7 +85,7 @@ public class Kaji {
                 System.out.println(UI.SEPARATOR);
             } catch (InvalidDeadlineCommandException e) {
                 System.out.println(UI.SEPARATOR);
-                System.out.println(UI.INDENTATION + "Usage: deadline <task> /by <date/time>");
+                System.out.println(UI.INDENTATION + "Usage: deadline <task> /by dd/mm/yyyy HHmm");
                 System.out.println(UI.SEPARATOR);
             } catch (InvalidEventCommandException e) {
                 System.out.println(UI.SEPARATOR);
