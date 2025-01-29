@@ -168,7 +168,7 @@ public class TaskList {
      * @param dateTime the date and time string to be converted, expected in the format "d/M/yyyy HHmm"
      * @return the converted date and time string in the format "MMM dd yyyy HHmm"
      */
-    public static String convertDateTime(String dateTime) {
+    public static String convertDateTimeFormat(String dateTime) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         LocalDateTime formattedDateTime = LocalDateTime.parse(dateTime, inputFormatter);
