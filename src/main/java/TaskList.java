@@ -9,7 +9,8 @@ public class TaskList {
     protected final ArrayList<Task> list = new ArrayList<>();
 
     /**
-     * Adds a new task to the task list.
+     * Adds a new task to the task list. (For User)
+     *
      * @param description the task to be added to the task list
      */
     public void addTask(String description, String type) {
@@ -31,6 +32,20 @@ public class TaskList {
         String taskWord = (list.size() == 1) ? "task" : "tasks";
         System.out.println(UI.INDENTATION + "There are now " + list.size() + " " + taskWord + " in your list.");
         System.out.println(UI.SEPARATOR);
+    }
+
+    /**
+     * Adds a new task to the task list. (For System)
+     *
+     * @param description the task to be added to the task list
+     */
+    public void addTask(String description) {
+        String[] parts = description.split(" \\| ");
+        switch (parts[0]) {
+            case "T" -> list.add(new ToDo(parts[0], parts[1]));
+            case "D" -> list.add(new Deadline(parts[0], parts[1], parts[2]));
+            case "E" -> list.add(new Event(parts[0], parts[1], parts[2], parts[3]));
+        }
     }
 
     /**

@@ -1,8 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOError;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
 
 /**
  * Handles the storage functionalities for the KAJI virtual assistant.
@@ -10,8 +6,31 @@ import java.util.ArrayList;
 public class Storage {
     private static final String FILE_PATH = "./data/kaji.txt";
 
+    /**
+     * Loads the tasks to the given task list from a file.
+     *
+     * @param taskList the task list for tasks to be loaded
+     */
     public void loadTasks(TaskList taskList) {
-
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        } else {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    taskList.addTask(line);
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + e.getMessage());
+            }
+        }
     }
 
     /**
