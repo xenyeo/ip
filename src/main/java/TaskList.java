@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Represents a simple task list that allows adding and viewing tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> list = new ArrayList<>();
+    protected final ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Adds a new task to the task list.
