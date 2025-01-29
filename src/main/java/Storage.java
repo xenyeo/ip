@@ -1,3 +1,5 @@
+import Exceptions.InvalidFileFormatException;
+
 import java.io.*;
 
 /**
@@ -24,7 +26,15 @@ public class Storage {
             try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    taskList.addTask(line);
+                    try {
+                        if (isValidTaskFormat(line)) {
+                            taskList.addTask(line);
+                        } else {
+                            throw new InvalidFileFormatException("Invalid file format");
+                        }
+                    } catch (InvalidFileFormatException e) {
+                        System.out.println(UI.INDENTATION + "Data file, 'kaji.txt', is corrupted.");
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Error reading file: " + e.getMessage());
@@ -58,5 +68,37 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
+    }
+
+    /**
+     * Validates whether the given task line is in a correct and valid format.
+     * A valid task format includes specific types (T, D, E), a valid completion status,
+     * and the appropriate number of segments based on the task type.
+     *
+     * @param taskLine the string representation of a task to be validated
+     * @return true if the task line matches the expected format, false otherwise
+     */
+    private boolean isValidTaskFormat(String taskLine) {
+        String[] parts = taskLine.split(" \\| ");
+        if (parts.length < 3) {
+            return false;
+        }
+        String type = parts[0];
+        if (!(type.equals("T") || type.equals("D") || type.equals("E"))) {
+            return false;
+        }
+        if (!(parts[1].equals("true") || parts[1].equals("false"))) {
+            return false;
+        }
+        if (type.equals("T") && parts.length != 3) {
+            return false;
+        }
+        if (type.equals("D") && parts.length != 4) {
+            return false;
+        }
+        if (type.equals("E") && parts.length != 5) {
+            return false;
+        }
+        return true;
     }
 }
