@@ -10,7 +10,7 @@ public class Task {
 
     public Task(String type, boolean isDone, String description) {
         this.type = type;
-        this.isDone = false;
+        this.isDone = isDone;
         this.description = description;
     }
 

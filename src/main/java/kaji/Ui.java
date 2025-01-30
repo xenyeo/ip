@@ -137,7 +137,7 @@ public class Ui {
         showLine();
         System.out.println(Ui.INDENTATION + "Here are the current tasks in your list:");
         for (int i = 0; i < taskList.taskList.size(); i++) {
-            System.out.println(Ui.INDENTATION + (i+1) + ". " + taskList.taskList.get(i).toString());
+            System.out.println(Ui.INDENTATION + (i + 1) + ". " + taskList.taskList.get(i).toString());
         }
         System.out.println(Ui.SEPARATOR);
     }

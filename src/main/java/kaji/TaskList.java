@@ -29,10 +29,11 @@ public class TaskList {
     public static void addTask(ArrayList<Task> taskList, String description) throws KajiException {
         String[] parts = description.split(" \\| ");
         switch (parts[0]) {
-            case "T" -> taskList.add(new ToDo(parts[0], Boolean.getBoolean(parts[1]), parts[2]));
-            case "D" -> taskList.add(new Deadline(parts[0], Boolean.getBoolean(parts[1]), parts[2], parts[3]));
-            case "E" -> taskList.add(new Event(parts[0], Boolean.getBoolean(parts[1]), parts[2], parts[3], parts[4]));
+            case "T" -> taskList.add(new ToDo(parts[0], Boolean.parseBoolean(parts[1]), parts[2]));
+            case "D" -> taskList.add(new Deadline(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3]));
+            case "E" -> taskList.add(new Event(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3], parts[4]));
         }
+        System.out.println(taskList);
     }
 
     /**
