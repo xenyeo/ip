@@ -143,6 +143,29 @@ public class Ui {
     }
 
     /**
+     * Displays the tasks that contains a keyword using the find command.
+     *
+     * @param taskList The list of task with keywords.
+     */
+    public void showMatchingTasks(ArrayList<Task> taskList) {
+        showLine();
+        System.out.println(Ui.INDENTATION + "Here are the matching tasks:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(Ui.INDENTATION + (i + 1) + ". " + taskList.get(i).toString());
+        }
+        showLine();
+    }
+
+    /**
+     * Displays message for no matching tasks.
+     */
+    public void showNoMatchingTasks() {
+        showLine();
+        System.out.println(Ui.INDENTATION + "There are no matching tasks!");
+        showLine();
+    }
+
+    /**
      * Reads the command entered by user.
      *
      * @return user command in the form of a String.

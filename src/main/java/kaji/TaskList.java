@@ -82,7 +82,7 @@ public class TaskList {
         } else {
             Task currentTask = taskList.get(taskId - 1);
             if (currentTask.isDone()) {
-                throw new KajiException("kaji.task.Task is already marked");
+                throw new KajiException("Task is already marked");
             } else {
                 currentTask.markTask();
                 ui.showMarkedTask(taskList, currentTask);
@@ -101,11 +101,25 @@ public class TaskList {
         } else {
             Task currentTask = taskList.get(taskId - 1);
             if (!currentTask.isDone()) {
-                throw new KajiException("kaji.task.Task is already unmarked");
+                throw new KajiException("Task is already unmarked");
             } else {
                 currentTask.unmarkTask();
                 ui.showUnmarkedTask(taskList, currentTask);
             }
+        }
+    }
+
+    public void findTasks(String pattern, Ui ui) throws KajiException {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(pattern)) {
+                foundTasks.add(task);
+            }
+        }
+        if (!foundTasks.isEmpty()) {
+            ui.showMatchingTasks(foundTasks);
+        } else {
+            ui.showNoMatchingTasks();
         }
     }
 }
