@@ -34,7 +34,9 @@ public class DeleteCommand extends Command {
      * @return false, as this command is not an exit command.
      */
     @Override
-    public boolean isExit() { return false; }
+    public boolean isExit() {
+        return false;
+    }
 
     /**
      * Returns the task id of the task that is deleted.

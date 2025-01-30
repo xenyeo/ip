@@ -43,7 +43,9 @@ public class AddCommand extends Command {
      *
      * @return The type of the task.
      */
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
     /**
      * Returns a string representation of the command.
@@ -53,4 +55,5 @@ public class AddCommand extends Command {
     public String getDescription() {
         return description;
     }
+
 }
