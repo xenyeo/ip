@@ -1,49 +1,78 @@
+import Exceptions.FileLoadException;
 import Exceptions.InvalidDateException;
 import Exceptions.InvalidFileFormatException;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Handles the storage functionalities for the KAJI virtual assistant.
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/kaji.txt";
+    private String filePath;
 
-    /**
-     * Loads the tasks to the given task list from a file.
-     *
-     * @param taskList the task list for tasks to be loaded
-     */
-    public void loadTasks(TaskList taskList) {
-        File file = new File(FILE_PATH);
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> load() throws FileLoadException {
+        File file = new File(filePath);
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                throw new FileLoadException("Error creating file: " + e.getMessage());
             }
         } else {
-            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                ArrayList<Task> taskList = new ArrayList<>();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    try {
-                        if (isValidTaskFormat(line)) {
-                            taskList.addTask(line);
-                        } else {
-                            throw new InvalidFileFormatException("Invalid file format");
-                        }
-                    } catch (InvalidFileFormatException e) {
-                        System.out.println(UI.INDENTATION + "Data file, 'kaji.txt', is corrupted.");
-                    } catch (InvalidDateException e) {
-                        throw new RuntimeException(e);
-                    }
+                    taskList.add(line);
                 }
+                return taskList;
             } catch (IOException e) {
-                System.out.println("Error reading file: " + e.getMessage());
+                throw new FileLoadException("Error reading file: " + e.getMessage());
             }
         }
     }
+
+//    /**
+//     * Loads the tasks to the given task list from a file.
+//     *
+//     * @param taskList the task list for tasks to be loaded
+//     */
+//    public void loadTasks(TaskList taskList) {
+//        File file = new File(filePath);
+//        if (!file.exists()) {
+//            try {
+//                file.getParentFile().mkdirs();
+//                file.createNewFile();
+//            } catch (IOException e) {
+//                System.out.println("Error creating file: " + e.getMessage());
+//            }
+//        } else {
+//            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    try {
+//                        if (isValidTaskFormat(line)) {
+//                            taskList.addTask(line);
+//                        } else {
+//                            throw new InvalidFileFormatException("Invalid file format");
+//                        }
+//                    } catch (InvalidFileFormatException e) {
+//                        System.out.println(Ui.INDENTATION + "Data file, 'tasks.txt', is corrupted.");
+//                    } catch (InvalidDateException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.out.println("Error reading file: " + e.getMessage());
+//            }
+//        }
+//    }
 
     /**
      * Saves the tasks stored in the given task list to a file.
@@ -51,7 +80,7 @@ public class Storage {
      * @param taskList the task list containing tasks to be saved
      */
     public void saveTasks(TaskList taskList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.list) {
             String taskString = "";
             if (task.type.equals("T")) {
