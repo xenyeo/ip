@@ -38,8 +38,18 @@ public class AddCommand extends Command {
     @Override
     public boolean isExit() { return false; }
 
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task.
+     */
     public String getType() { return type; }
 
+    /**
+     * Returns a string representation of the command.
+     *
+     * @return A string representation of the command.
+     */
     public String getDescription() {
         return description;
     }

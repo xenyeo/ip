@@ -36,6 +36,11 @@ public class UnmarkCommand extends Command {
     @Override
     public boolean isExit() { return false; }
 
+    /**
+     * Returns the task id of task that is unmarked.
+     *
+     * @return The task id of task that is unmarked.
+     */
     public int getTaskId() {
         return taskId;
     }

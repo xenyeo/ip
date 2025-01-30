@@ -36,6 +36,11 @@ public class MarkCommand extends Command {
     @Override
     public boolean isExit() { return false; }
 
+    /**
+     * Returns the task id of task that is marked.
+     *
+     * @return The task id of task that is marked.
+     */
     public int getTaskId() {
         return taskId;
     }
