@@ -1,3 +1,4 @@
+import Exceptions.InvalidDateException;
 import Exceptions.InvalidFileFormatException;
 
 import java.io.*;
@@ -34,6 +35,8 @@ public class Storage {
                         }
                     } catch (InvalidFileFormatException e) {
                         System.out.println(UI.INDENTATION + "Data file, 'kaji.txt', is corrupted.");
+                    } catch (InvalidDateException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             } catch (IOException e) {

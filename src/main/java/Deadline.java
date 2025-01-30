@@ -1,12 +1,16 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import Exceptions.InvalidDateException;
 
 public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String type, Boolean isDone, String description, String by) {
+    public Deadline(String type, Boolean isDone, String description, String by) throws InvalidDateException {
         super(type, isDone, description);
-        this.by = by;
+        String validPattern = "\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4}";
+        if (by.matches(validPattern)) {
+            this.by = by;
+        } else {
+            throw new InvalidDateException("Invalid date format");
+        }
     }
 
     @Override

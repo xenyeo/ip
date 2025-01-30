@@ -16,24 +16,31 @@ public class TaskList {
      * @param description the task to be added to the task list
      */
     public void addTask(String description, String type) {
-        System.out.println(UI.SEPARATOR);
-        System.out.println(UI.INDENTATION + "This task has been added:");
-        switch (type) {
-            case "T" -> list.add(new ToDo(type, false, description));
-            case "D" -> {
-                String[] descriptionParts = description.split(" /by ");
-                list.add(new Deadline(type, false, descriptionParts[0], descriptionParts[1]));
+        try {
+            switch (type) {
+                case "T" -> list.add(new ToDo(type, false, description));
+                case "D" -> {
+                    String[] descriptionParts = description.split(" /by ");
+                    list.add(new Deadline(type, false, descriptionParts[0], descriptionParts[1]));
+                }
+                case "E" -> {
+                    String[] descriptionParts = description.split(" /from ");
+                    String[] range = descriptionParts[1].split(" /to ");
+                    list.add(new Event(type, false, descriptionParts[0], range[0], range[1]));
+                }
             }
-            case "E" -> {
-                String[] descriptionParts = description.split(" /from ");
-                String[] range = descriptionParts[1].split(" /to ");
-                list.add(new Event(type, false, descriptionParts[0], range[0], range[1]));
-            }
+            System.out.println(UI.SEPARATOR);
+            System.out.println(UI.INDENTATION + "This task has been added:");
+            System.out.println(UI.INDENTATION + " " + list.get(list.size() - 1).toString());
+            String taskWord = (list.size() == 1) ? "task" : "tasks";
+            System.out.println(UI.INDENTATION + "There are now " + list.size() + " " + taskWord + " in your list.");
+            System.out.println(UI.SEPARATOR);
+        } catch (InvalidDateException e) {
+            System.out.println(UI.SEPARATOR);
+            System.out.println(UI.INDENTATION + "Invalid date format!\n"
+                    + UI.INDENTATION + "Usage: dd/mm/yyyy HHmm (Eg. 1/3/2025 1100)");
+            System.out.println(UI.SEPARATOR);
         }
-        System.out.println(UI.INDENTATION + " " + list.get(list.size() - 1).toString());
-        String taskWord = (list.size() == 1) ? "task" : "tasks";
-        System.out.println(UI.INDENTATION + "There are now " + list.size() + " " + taskWord + " in your list.");
-        System.out.println(UI.SEPARATOR);
     }
 
     /**
@@ -41,7 +48,7 @@ public class TaskList {
      *
      * @param description the task to be added to the task list
      */
-    public void addTask(String description) {
+    public void addTask(String description) throws InvalidDateException {
         String[] parts = description.split(" \\| ");
         switch (parts[0]) {
             case "T" -> list.add(new ToDo(parts[0], Boolean.getBoolean(parts[1]), parts[2]));

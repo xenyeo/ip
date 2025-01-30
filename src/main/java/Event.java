@@ -1,3 +1,5 @@
+import Exceptions.InvalidDateException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,10 +7,16 @@ public class Event extends Task {
     protected String start;
     protected String end;
 
-    public Event(String type, Boolean isDone, String description, String start, String end) {
+    public Event(String type, Boolean isDone, String description, String start, String end)
+            throws InvalidDateException {
         super(type, isDone, description);
-        this.start = start;
-        this.end = end;
+        String validPattern = "\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4}";
+        if (start.matches(validPattern) && end.matches(validPattern)) {
+            this.start = start;
+            this.end = end;
+        } else {
+            throw new InvalidDateException("Invalid date format");
+        }
     }
 
     /**
