@@ -1,15 +1,16 @@
+package kaji.command;
+
+import kaji.KajiException;
+import kaji.Storage;
+import kaji.TaskList;
+import kaji.Ui;
+
 /**
- * Deals with the unmark command.
+ * Deals with the list command.
  */
-public class UnmarkCommand extends Command {
-    private int taskId;
-
-    public UnmarkCommand(int taskId) {
-        this.taskId = taskId;
-    }
-
+public class ListCommand extends Command {
     /**
-     * Executes the unmark command.
+     * Executes the list command.
      *
      * @param tasklist The task list to operate on.
      * @param ui The UI to interact with user.
@@ -18,7 +19,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        tasklist.unmarkTask(taskId, ui);
+        ui.showTaskList(tasklist);
     }
 
     /**

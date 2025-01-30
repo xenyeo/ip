@@ -1,3 +1,10 @@
+package kaji.command;
+
+import kaji.KajiException;
+import kaji.Storage;
+import kaji.TaskList;
+import kaji.Ui;
+
 /**
  * Deals with the add command.
  */

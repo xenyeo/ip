@@ -1,3 +1,10 @@
+package kaji.command;
+
+import kaji.KajiException;
+import kaji.Storage;
+import kaji.TaskList;
+import kaji.Ui;
+
 /**
  * Provides a template for executing commands.
  */
