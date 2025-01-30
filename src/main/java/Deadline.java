@@ -1,22 +1,39 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a Deadline task with a specific date and time.
+ */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String type, Boolean isDone, String description, String by) {
+    /**
+     * Constructs a Deadline object with the specified type, completion status, description, and deadline date-time.
+     *
+     * @param type The type of the task.
+     * @param isDone The completion status of the task.
+     * @param description The description of the task.
+     * @param by The deadline date-time in yyyy-MM-ddTHH:mm format.
+     */
+    public Deadline(String type, Boolean isDone, String description, String by) throws KajiException {
         super(type, isDone, description);
-        this.by = by;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            this.by = LocalDateTime.parse(by, formatter);
+        } catch (DateTimeParseException e) {
+            throw new KajiException("Invalid date & time format");
+        }
     }
-//    public Deadline(String type, Boolean isDone, String description, String by) throws InvalidDateException {
-//        super(type, isDone, description);
-//        String validPattern = "\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4}";
-//        if (by.matches(validPattern)) {
-//            this.by = by;
-//        } else {
-//            throw new InvalidDateException("Invalid date format");
-//        }
-//    }
 
+    /**
+     * Returns a string representation of the Deadline object.
+     *
+     * @return A string representation of the Deadline object.
+     */
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        return super.toString() + " (by: " + by.format(formatter) + ")";
     }
 }
