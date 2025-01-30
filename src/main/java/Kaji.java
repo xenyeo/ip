@@ -1,3 +1,6 @@
+/**
+ * Initializes Kaji chatbot
+ */
 public class Kaji {
 
     private Storage storage;
