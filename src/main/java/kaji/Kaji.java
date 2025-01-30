@@ -1,5 +1,9 @@
+package kaji;
+
+import kaji.command.Command;
+
 /**
- * Initializes Kaji chatbot
+ * Initializes kaji.Kaji chatbot
  */
 public class Kaji {
 

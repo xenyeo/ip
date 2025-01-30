@@ -1,3 +1,10 @@
+package kaji;
+
+import kaji.task.Deadline;
+import kaji.task.Event;
+import kaji.task.Task;
+import kaji.task.ToDo;
+
 import java.util.ArrayList;
 
 /**
@@ -74,8 +81,8 @@ public class TaskList {
             throw new KajiException("Invalid task id");
         } else {
             Task currentTask = taskList.get(taskId - 1);
-            if (currentTask.isDone) {
-                throw new KajiException("Task is already marked");
+            if (currentTask.isDone()) {
+                throw new KajiException("kaji.task.Task is already marked");
             } else {
                 currentTask.markTask();
                 ui.showMarkedTask(taskList, currentTask);
@@ -93,8 +100,8 @@ public class TaskList {
             throw new KajiException("Invalid task id");
         } else {
             Task currentTask = taskList.get(taskId - 1);
-            if (!currentTask.isDone) {
-                throw new KajiException("Task is already unmarked");
+            if (!currentTask.isDone()) {
+                throw new KajiException("kaji.task.Task is already unmarked");
             } else {
                 currentTask.unmarkTask();
                 ui.showUnmarkedTask(taskList, currentTask);

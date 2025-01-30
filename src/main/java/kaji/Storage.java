@@ -1,3 +1,9 @@
+package kaji;
+
+import kaji.task.Deadline;
+import kaji.task.Event;
+import kaji.task.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -59,17 +65,18 @@ public class Storage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.taskList) {
             String taskString = "";
-            if (task.type.equals("T")) {
-                taskString = task.type + " | " + task.isDone + " | " + task.description;
+            if (task.getType().equals("T")) {
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription();
             }
-            if (task.type.equals("D")) {
+            if (task.getType().equals("D")) {
                 Deadline t = (Deadline) task;
-                taskString = task.type + " | " + task.isDone + " | " + task.description + " | " + t.by;
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
+                        + t.getDeadline();
             }
-            if (task.type.equals("E")) {
+            if (task.getType().equals("E")) {
                 Event e = (Event) task;
-                taskString = task.type + " | " + task.isDone + " | " + task.description + " | " + e.start + " | "
-                        + e.end;
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
+                        + e.getStart() + " | " + e.getEnd();
             }
             writer.write(taskString);
             writer.newLine();
