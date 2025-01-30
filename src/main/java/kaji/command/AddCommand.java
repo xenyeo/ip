@@ -37,4 +37,10 @@ public class AddCommand extends Command {
      */
     @Override
     public boolean isExit() { return false; }
+
+    public String getType() { return type; }
+
+    public String getDescription() {
+        return description;
+    }
 }
