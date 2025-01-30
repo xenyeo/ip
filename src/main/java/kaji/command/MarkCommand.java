@@ -34,7 +34,9 @@ public class MarkCommand extends Command {
      * @return false, as this command is not an exit command.
      */
     @Override
-    public boolean isExit() { return false; }
+    public boolean isExit() {
+        return false;
+    }
 
     public int getTaskId() {
         return taskId;

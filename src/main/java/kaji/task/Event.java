@@ -1,7 +1,7 @@
 package kaji.task;
 
 /**
- * Represents an kaji.task.Event task with a specific start and end date-time.
+ * Represents an Event task with a specific start and end date-time.
  */
 public class Event extends Task {
     protected String start;

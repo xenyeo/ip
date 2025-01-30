@@ -7,13 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a kaji.task.Deadline task with a specific date and time.
+ * Represents a Deadline task with a specific date and time.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructs a kaji.task.Deadline object with the specified type, completion status, description, and deadline date-time.
+     * Constructs a Deadline object with the specified type, completion status, description, and deadline date-time.
      *
      * @param type The type of the task.
      * @param isDone The completion status of the task.
