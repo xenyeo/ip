@@ -161,7 +161,7 @@ public class Ui {
      */
     public void showNoMatchingTasks() {
         showLine();
-        System.out.println(Ui.INDENTATION + "There are no matching tasks!");
+        System.out.println(Ui.INDENTATION + "There are no matching tasks :(");
         showLine();
     }
 

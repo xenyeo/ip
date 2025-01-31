@@ -3,7 +3,7 @@ package kaji;
 import kaji.command.Command;
 
 /**
- * Initializes kaji.Kaji chatbot
+ * Initializes chatbot
  */
 public class Kaji {
 
