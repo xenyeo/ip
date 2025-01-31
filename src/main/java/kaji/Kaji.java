@@ -17,7 +17,7 @@ public class Kaji {
         try {
             tasks = new TaskList(storage.load());
         } catch (KajiException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(); // If file cannot be created or loaded fully
             tasks = new TaskList();
         }
     }
