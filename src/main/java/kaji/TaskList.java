@@ -1,11 +1,11 @@
 package kaji;
 
+import java.util.ArrayList;
+
 import kaji.task.Deadline;
 import kaji.task.Event;
 import kaji.task.Task;
 import kaji.task.ToDo;
-
-import java.util.ArrayList;
 
 /**
  * Contains the task list with operations to manipulate tasks in the list.
@@ -32,6 +32,7 @@ public class TaskList {
             case "T" -> taskList.add(new ToDo(parts[0], Boolean.parseBoolean(parts[1]), parts[2]));
             case "D" -> taskList.add(new Deadline(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3]));
             case "E" -> taskList.add(new Event(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3], parts[4]));
+            default -> throw new KajiException("Invalid task type: " + parts[0]);
         }
         System.out.println(taskList);
     }
@@ -53,6 +54,7 @@ public class TaskList {
                 String[] range = descriptionParts[1].split(" /to ");
                 taskList.add(new Event(type, false, descriptionParts[0], range[0], range[1]));
             }
+            default -> throw new KajiException("Invalid task type: " + type);
         }
         ui.showTaskAdded(taskList);
     }
@@ -63,13 +65,13 @@ public class TaskList {
      * @param taskId the ID of the task to be deleted
      */
     public void deleteTask(int taskId, Ui ui) throws KajiException {
-            if (taskId > taskList.size() || taskId == 0) {
-                throw new KajiException("Invalid task id");
-            } else {
-                Task currentTask = taskList.get(taskId - 1);
-                taskList.remove(currentTask);
-                ui.showTaskDeleted(taskList, currentTask);
-            }
+        if (taskId > taskList.size() || taskId == 0) {
+            throw new KajiException("Invalid task id");
+        } else {
+            Task currentTask = taskList.get(taskId - 1);
+            taskList.remove(currentTask);
+            ui.showTaskDeleted(taskList, currentTask);
+        }
     }
 
     /**
@@ -110,6 +112,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and displays tasks that match the given pattern.
+     *
+     * @param pattern the pattern to search for in task descriptions
+     * @param ui the user interface object for displaying matching tasks
+     * @throws KajiException if an error occurs while processing the tasks
+     */
     public void findTasks(String pattern, Ui ui) throws KajiException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : taskList) {

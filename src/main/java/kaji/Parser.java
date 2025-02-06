@@ -1,10 +1,17 @@
 package kaji;
 
-import kaji.command.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import kaji.command.AddCommand;
+import kaji.command.Command;
+import kaji.command.DeleteCommand;
+import kaji.command.ExitCommand;
+import kaji.command.FindCommand;
+import kaji.command.ListCommand;
+import kaji.command.MarkCommand;
+import kaji.command.UnmarkCommand;
 
 /**
  * Deals with making sense of the user command.

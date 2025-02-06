@@ -11,6 +11,12 @@ public class Kaji {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes a new instance of the Kaji application.
+     *
+     * @param filePath the path to the file used for storing tasks
+     * @throws KajiException if there is an error loading the tasks from the storage file
+     */
     public Kaji(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
