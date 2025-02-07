@@ -42,7 +42,7 @@ public class TaskList {
      *
      * @param description the task to be added to the task list
      */
-    public void addTask(String type, String description, Ui ui) throws KajiException {
+    public String addTask(String type, String description, Ui ui) throws KajiException {
         switch (type) {
             case "T" -> taskList.add(new ToDo(type, false, description));
             case "D" -> {
@@ -56,7 +56,7 @@ public class TaskList {
             }
             default -> throw new KajiException("Invalid task type: " + type);
         }
-        ui.showTaskAdded(taskList);
+        return ui.showTaskAdded(this.taskList);
     }
 
     /**
@@ -64,13 +64,13 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be deleted
      */
-    public void deleteTask(int taskId, Ui ui) throws KajiException {
+    public String deleteTask(int taskId, Ui ui) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
             Task currentTask = taskList.get(taskId - 1);
             taskList.remove(currentTask);
-            ui.showTaskDeleted(taskList, currentTask);
+            return ui.showTaskDeleted(taskList, currentTask);
         }
     }
 
@@ -79,7 +79,7 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be marked as completed
      */
-    public void markTask(int taskId, Ui ui) throws KajiException {
+    public String markTask(int taskId, Ui ui) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
@@ -88,7 +88,7 @@ public class TaskList {
                 throw new KajiException("Task is already marked");
             } else {
                 currentTask.markTask();
-                ui.showMarkedTask(taskList, currentTask);
+                return ui.showMarkedTask(currentTask);
             }
         }
     }
@@ -98,7 +98,7 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be marked as uncompleted
      */
-    public void unmarkTask(int taskId, Ui ui) throws KajiException {
+    public String unmarkTask(int taskId, Ui ui) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
@@ -107,7 +107,7 @@ public class TaskList {
                 throw new KajiException("Task is already unmarked");
             } else {
                 currentTask.unmarkTask();
-                ui.showUnmarkedTask(taskList, currentTask);
+                return ui.showUnmarkedTask(currentTask);
             }
         }
     }
@@ -119,7 +119,7 @@ public class TaskList {
      * @param ui the user interface object for displaying matching tasks
      * @throws KajiException if an error occurs while processing the tasks
      */
-    public void findTasks(String pattern, Ui ui) throws KajiException {
+    public String findTasks(String pattern, Ui ui) throws KajiException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getDescription().contains(pattern)) {
@@ -127,9 +127,9 @@ public class TaskList {
             }
         }
         if (!foundTasks.isEmpty()) {
-            ui.showMatchingTasks(foundTasks);
+            return ui.showMatchingTasks(foundTasks);
         } else {
-            ui.showNoMatchingTasks();
+            return ui.showNoMatchingTasks();
         }
     }
 }

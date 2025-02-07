@@ -24,8 +24,8 @@ public class FindCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        tasklist.findTasks(pattern, ui);
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        return tasklist.findTasks(pattern, ui);
     }
 
     /**

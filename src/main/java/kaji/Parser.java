@@ -9,6 +9,7 @@ import kaji.command.Command;
 import kaji.command.DeleteCommand;
 import kaji.command.ExitCommand;
 import kaji.command.FindCommand;
+import kaji.command.InvalidCommand;
 import kaji.command.ListCommand;
 import kaji.command.MarkCommand;
 import kaji.command.UnmarkCommand;
@@ -38,7 +39,7 @@ public class Parser {
             case "delete" -> parseDeleteCommand(commandParts);
             case "bye" -> new ExitCommand();
             case "find" -> parseFindCommand(commandParts);
-            default -> throw new KajiException("Unknown command: " + commandType);
+            default -> new InvalidCommand();
         };
     }
 

@@ -24,8 +24,8 @@ public class MarkCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        tasklist.markTask(taskId, ui);
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        return tasklist.markTask(taskId, ui);
     }
 
     /**
