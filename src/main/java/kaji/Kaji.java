@@ -34,7 +34,7 @@ public class Kaji {
             }
             return c.execute(tasks);
         } catch (KajiException e) {
-            return e.getMessage();
+            return ui.showError(e.getMessage());
         }
     }
 

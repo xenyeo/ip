@@ -52,8 +52,8 @@ public class Ui {
      *
      * @param message the error message to be displayed
      */
-    public void showError(String message) {
-        System.out.println(INDENTATION + message);
+    public String showError(String message) {
+        return INDENTATION + message;
     }
 
     /**
@@ -152,6 +152,26 @@ public class Ui {
      */
     public String showInvalidCommandMessage() {
         return INDENTATION + "I don't understand what that means :(";
+    }
+
+    /**
+     * Displays message for task tagged.
+     */
+    public String showTagAdded(Task task, String tagName) {
+        return String.format(
+                "%s%s has been tagged with %s",
+                INDENTATION, task.getDescription(), tagName
+        );
+    }
+
+    /**
+     * Displays message for task untagged.
+     */
+    public String showTagRemoved(Task task, String tagName) {
+        return String.format(
+                "%sTag %s has been removed from %s",
+                INDENTATION, tagName, task.getDescription()
+        );
     }
 
     /**

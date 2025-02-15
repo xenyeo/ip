@@ -74,18 +74,26 @@ public class Storage {
             for (Task task : taskList.taskList) {
                 String taskString = "";
                 if (task.getType().equals("T")) {
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription();
+                    taskString = String.format(
+                            "%s | %s | %s ",
+                            task.getType(), task.isDone(), task.getDescription()
+                    );
                 }
                 if (task.getType().equals("D")) {
                     Deadline t = (Deadline) task;
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
-                            + t.getDeadline();
+                    taskString = String.format(
+                            "%s | %s | %s | %s ",
+                            task.getType(), t.getDeadline(), t.getDescription(), t.getDeadline()
+                    );
                 }
                 if (task.getType().equals("E")) {
                     Event e = (Event) task;
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
-                            + e.getStart() + " | " + e.getEnd();
+                    taskString = String.format(
+                            "%s | %s | %s | %s | %s ",
+                            task.getType(), task.isDone(), task.getDescription(), e.getStart(), e.getEnd()
+                    );
                 }
+                taskString += "| " + task.getTagsString();
                 writer.write(taskString);
                 writer.newLine();
             }

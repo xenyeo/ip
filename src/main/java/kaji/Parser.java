@@ -12,7 +12,9 @@ import kaji.command.FindCommand;
 import kaji.command.InvalidCommand;
 import kaji.command.ListCommand;
 import kaji.command.MarkCommand;
+import kaji.command.TagCommand;
 import kaji.command.UnmarkCommand;
+import kaji.command.UntagCommand;
 
 /**
  * Deals with making sense of the user command.
@@ -39,6 +41,8 @@ public class Parser {
             case "delete" -> parseDeleteCommand(commandParts);
             case "bye" -> new ExitCommand();
             case "find" -> parseFindCommand(commandParts);
+            case "tag" -> parseTagCommand(commandParts);
+            case "untag" -> parseUntagCommand(commandParts);
             default -> new InvalidCommand();
         };
     }
@@ -155,5 +159,52 @@ public class Parser {
             throw new KajiException("Invalid find command");
         }
         return new FindCommand(commandParts[1]);
+    }
+
+
+    /**
+     * Parses the tag command and return the corresponding TagCommand object.
+     *
+     * @param commandParts The parts of the command string.
+     * @return TagCommand object for the tag command.
+     * @throws KajiException If the tag command is invalid.
+     */
+    private static Command parseTagCommand(String[] commandParts) throws KajiException {
+        if (commandParts.length == 1) {
+            throw new KajiException("Invalid tag command");
+        }
+
+        String[] parts = commandParts[1].split(" ");
+
+        if (!parts[0].matches("\\d+")) {
+            throw new KajiException("Invalid task list number");
+        } else if (parts.length == 1) {
+            throw new KajiException("Invalid tag command");
+        }
+
+        return new TagCommand(Integer.parseInt(parts[0]), parts[1]);
+    }
+
+    /**
+     * Parses the untag command and return the corresponding UntagCommand object.
+     *
+     * @param commandParts The parts of the command string.
+     * @return UntagCommand object for the untag command.
+     * @throws KajiException If the untag command is invalid.
+     */
+    private static Command parseUntagCommand(String[] commandParts) throws KajiException {
+        if (commandParts.length == 1) {
+            throw new KajiException("Invalid untag command");
+        }
+
+        String[] parts = commandParts[1].split(" ");
+
+        if (!parts[0].matches("\\d+")) {
+            throw new KajiException("Invalid task list number");
+        } else if (parts.length == 1) {
+            throw new KajiException("Invalid tag command");
+        }
+
+        return new UntagCommand(Integer.parseInt(parts[0]), parts[1]);
     }
 }
