@@ -25,18 +25,19 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Kaji kaji;
+    private final Ui ui = new Ui();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.showWelcome(), dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage));
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Kaji k) {
+    public void setKaji(Kaji k) {
         kaji = k;
     }
 
@@ -47,21 +48,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws KajiException {
         String input = userInput.getText();
+        String response = kaji.getResponse(input);
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
+
         if (input.equals("bye")) {
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.showExit(), dukeImage));
             PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2-second delay
             delay.setOnFinished(event -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();
                 stage.close();
             });
             delay.play();
-        } else {
-            String response = kaji.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
-            );
         }
+
         userInput.clear();
     }
 }

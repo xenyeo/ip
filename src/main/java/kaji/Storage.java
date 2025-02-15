@@ -16,7 +16,7 @@ import kaji.task.Task;
  * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -31,18 +31,20 @@ public class Storage {
     public ArrayList<Task> load() throws KajiException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
+
         if (!file.exists()) {
             createStorageFile(file);
-        } else {
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    TaskList.addTask(taskList, line);
-                }
-            } catch (IOException e) {
-                throw new KajiException("Error reading file: " + e.getMessage());
-            }
         }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                TaskList.addTask(taskList, line);
+            }
+        } catch (IOException e) {
+            throw new KajiException("Error reading file: " + e.getMessage());
+        }
+
         return taskList;
     }
 

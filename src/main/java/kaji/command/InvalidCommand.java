@@ -1,7 +1,6 @@
 package kaji.command;
 
 import kaji.KajiException;
-import kaji.Storage;
 import kaji.TaskList;
 import kaji.Ui;
 
@@ -9,17 +8,17 @@ import kaji.Ui;
  * Deals with the add command.
  */
 public class InvalidCommand extends Command {
+    public final Ui ui = new Ui();
+
     /**
-     * Executes the add command.
+     * Executes the invalid command.
      *
      * @param tasklist The task list to operate on.
-     * @param ui The UI to interact with user.
-     * @param storage The storage to save or load tasks.
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        return "I don't understand what that means :(";
+    public String execute(TaskList tasklist) throws KajiException {
+        return ui.showInvalidCommandMessage();
     }
 
     /**

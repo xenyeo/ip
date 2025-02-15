@@ -27,16 +27,16 @@ public class Ui {
             + INDENTATION + "See you again soon!";
 
     /**
-     * Displays the welcome page.
+     * Displays the welcome message.
      */
-    public static String showWelcome() {
+    public String showWelcome() {
         return GREET;
     }
 
     /**
-     * Displays the exit page.
+     * Displays the exit message.
      */
-    public static String showExit() {
+    public String showExit() {
         return EXIT;
     }
 
@@ -53,11 +53,11 @@ public class Ui {
      * @param message the error message to be displayed
      */
     public void showError(String message) {
-        System.out.println(Ui.INDENTATION + message);
+        System.out.println(INDENTATION + message);
     }
 
     /**
-     * Displays task successfully added to task list.
+     * Displays confirmation message if task is successfully added to task list.
      *
      * @param taskList the task list containing task added.
      */
@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Displays task successfully deleted from task list.
+     * Displays confirmation message if task is successfully deleted from task list.
      *
      * @param taskList the task list without the deleted task.
      * @param taskDeleted the task that is deleted.
@@ -85,7 +85,7 @@ public class Ui {
     }
 
     /**
-     * Displays task successfully marked in the task list.
+     * Displays confirmation message if task is successfully marked in the task list.
      *
      * @param markedTask the task that is marked.
      */
@@ -97,7 +97,7 @@ public class Ui {
     }
 
     /**
-     * Displays task successfully unmarked in the task list.
+     * Displays confirmation message if task is successfully unmarked in the task list.
      *
      * @param unmarkedTask the task that is unmarked.
      */
@@ -115,34 +115,43 @@ public class Ui {
      */
     public String showTaskList(TaskList taskList) {
         StringJoiner joiner = new StringJoiner("\n");
-        joiner.add(Ui.INDENTATION + "Here are the current tasks in your list:");
+        joiner.add(INDENTATION + "Here are the current tasks in your list:");
         for (int i = 0; i < taskList.taskList.size(); i++) {
             joiner.add(String.format("%s%d. %s",
-                    Ui.INDENTATION + Ui.INDENTATION, i + 1, taskList.taskList.get(i).toString()));
+                    INDENTATION + INDENTATION, i + 1, taskList.taskList.get(i).toString()));
         }
         return joiner.toString();
     }
 
-
     /**
-     * Displays the tasks that contains a keyword using the find command.
+     * Displays all tasks that contains the keyword.
+     * This method is invoked by find command.
      *
-     * @param taskList The list of task with keywords.
+     * @param taskList The current task list.
      */
     public String showMatchingTasks(ArrayList<Task> taskList) {
-        StringBuilder reply = new StringBuilder();
-        reply.append(INDENTATION + "Here are the matching tasks:");
+        StringJoiner joiner = new StringJoiner("\n");
+        joiner.add(INDENTATION + "Here are the matching tasks:");
         for (int i = 0; i < taskList.size(); i++) {
-            reply.append(Ui.INDENTATION).append(i + 1).append(". ").append(taskList.get(i).toString());
+            joiner.add(String.format("%s%d. %s",
+                    INDENTATION + INDENTATION, i + 1, taskList.get(i).toString()));
         }
-        return reply.toString();
+        return joiner.toString();
     }
 
     /**
-     * Displays message for no matching tasks.
+     * Displays message for no matching tasks in the current task list.
+     * This method is invoked by find command.
      */
     public String showNoMatchingTasks() {
         return INDENTATION + "There are no matching tasks :(";
+    }
+
+    /**
+     * Displays message for invalid command.
+     */
+    public String showInvalidCommandMessage() {
+        return INDENTATION + "I don't understand what that means :(";
     }
 
     /**

@@ -1,6 +1,7 @@
 package kaji;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 import kaji.task.Deadline;
 import kaji.task.Event;
@@ -12,6 +13,7 @@ import kaji.task.ToDo;
  */
 public class TaskList {
     protected ArrayList<Task> taskList;
+    private final Ui ui = new Ui();
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -42,7 +44,7 @@ public class TaskList {
      *
      * @param description the task to be added to the task list
      */
-    public String addTask(String type, String description, Ui ui) throws KajiException {
+    public String addTask(String type, String description) throws KajiException {
         switch (type) {
             case "T" -> taskList.add(new ToDo(type, false, description));
             case "D" -> {
@@ -64,7 +66,7 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be deleted
      */
-    public String deleteTask(int taskId, Ui ui) throws KajiException {
+    public String deleteTask(int taskId) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
@@ -79,7 +81,7 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be marked as completed
      */
-    public String markTask(int taskId, Ui ui) throws KajiException {
+    public String markTask(int taskId) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
@@ -98,7 +100,7 @@ public class TaskList {
      *
      * @param taskId the ID of the task to be marked as uncompleted
      */
-    public String unmarkTask(int taskId, Ui ui) throws KajiException {
+    public String unmarkTask(int taskId) throws KajiException {
         if (taskId > taskList.size() || taskId == 0) {
             throw new KajiException("Invalid task id");
         } else {
@@ -116,10 +118,9 @@ public class TaskList {
      * Finds and displays tasks that match the given pattern.
      *
      * @param pattern the pattern to search for in task descriptions
-     * @param ui the user interface object for displaying matching tasks
      * @throws KajiException if an error occurs while processing the tasks
      */
-    public String findTasks(String pattern, Ui ui) throws KajiException {
+    public String findTasks(String pattern) throws KajiException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getDescription().contains(pattern)) {
@@ -131,5 +132,13 @@ public class TaskList {
         } else {
             return ui.showNoMatchingTasks();
         }
+    }
+
+    /**
+     * Displays all the tasks in the current task list.
+     *
+     */
+    public String showTaskList() {
+        return ui.showTaskList(this);
     }
 }

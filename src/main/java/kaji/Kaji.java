@@ -8,8 +8,8 @@ import kaji.command.Command;
 public class Kaji {
 
     private static final String FILE_PATH = "./data/kaji.txt";
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
 
     public Kaji() {
@@ -19,18 +19,20 @@ public class Kaji {
         ui.showWelcome();
     }
 
-    // For GUI (In Use)
     /**
-     * Gets the response for the given input.
+     * Returns a response for the given user input.
      *
      * @param input the user input
      * @return the response as a string
-     * @throws KajiException if an error occurs while processing the input
      */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                storage.save(tasks);
+                return ui.showExit();
+            }
+            return c.execute(tasks);
         } catch (KajiException e) {
             return e.getMessage();
         }
@@ -38,8 +40,6 @@ public class Kaji {
 
     /**
      * Loads tasks from the storage file.
-     *
-     * @throws KajiException if an error occurs while loading the tasks
      */
     private void loadFile() {
         try {

@@ -1,15 +1,13 @@
 package kaji.command;
 
 import kaji.KajiException;
-import kaji.Storage;
 import kaji.TaskList;
-import kaji.Ui;
 
 /**
  * Deals with the find command.
  */
 public class FindCommand extends Command {
-    private String pattern;
+    private final String pattern;
 
     public FindCommand(String pattern) {
         this.pattern = pattern;
@@ -19,13 +17,11 @@ public class FindCommand extends Command {
      * Executes the find command.
      *
      * @param tasklist The task list to operate on.
-     * @param ui The UI to interact with user.
-     * @param storage The storage to save or load tasks.
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        return tasklist.findTasks(pattern, ui);
+    public String execute(TaskList tasklist) throws KajiException {
+        return tasklist.findTasks(pattern);
     }
 
     /**
