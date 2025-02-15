@@ -19,6 +19,7 @@ public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "FILE_PATH should not be empty";
         this.filePath = filePath;
     }
 
