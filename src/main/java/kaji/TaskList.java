@@ -28,6 +28,7 @@ public class TaskList {
      */
     public static void addTask(ArrayList<Task> taskList, String description) throws KajiException {
         String[] parts = description.split(" \\| ");
+        assert !(parts.length == 2) : "Task description is in the wrong format";
         switch (parts[0]) {
             case "T" -> taskList.add(new ToDo(parts[0], Boolean.parseBoolean(parts[1]), parts[2]));
             case "D" -> taskList.add(new Deadline(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3]));
