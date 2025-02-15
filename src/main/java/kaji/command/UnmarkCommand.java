@@ -24,8 +24,8 @@ public class UnmarkCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        tasklist.unmarkTask(taskId, ui);
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        return tasklist.unmarkTask(taskId, ui);
     }
 
     /**
@@ -38,6 +38,11 @@ public class UnmarkCommand extends Command {
         return false;
     }
 
+    /**
+     * Returns the task id of task that is unmarked.
+     *
+     * @return The task id of task that is unmarked.
+     */
     public int getTaskId() {
         return taskId;
     }

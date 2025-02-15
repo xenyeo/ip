@@ -6,11 +6,17 @@ import kaji.TaskList;
 import kaji.Ui;
 
 /**
- * Deals with the list command.
+ * Deals with the find command.
  */
-public class ListCommand extends Command {
+public class FindCommand extends Command {
+    private String pattern;
+
+    public FindCommand(String pattern) {
+        this.pattern = pattern;
+    }
+
     /**
-     * Executes the list command.
+     * Executes the find command.
      *
      * @param tasklist The task list to operate on.
      * @param ui The UI to interact with user.
@@ -19,7 +25,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        return ui.showTaskList(tasklist);
+        return tasklist.findTasks(pattern, ui);
     }
 
     /**

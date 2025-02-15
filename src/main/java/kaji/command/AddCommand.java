@@ -26,8 +26,8 @@ public class AddCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        tasklist.addTask(type, description, ui);
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        return tasklist.addTask(type, description, ui);
     }
 
     /**
@@ -40,11 +40,22 @@ public class AddCommand extends Command {
         return false;
     }
 
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Returns a string representation of the command.
+     *
+     * @return A string representation of the command.
+     */
     public String getDescription() {
         return description;
     }
+
 }

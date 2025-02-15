@@ -6,24 +6,28 @@ import kaji.TaskList;
 import kaji.Ui;
 
 /**
- * Provides a template for executing commands.
+ * Deals with the add command.
  */
-public abstract class Command {
+public class InvalidCommand extends Command {
     /**
-     * Executes the command with the given task list, UI, and storage.
+     * Executes the add command.
      *
      * @param tasklist The task list to operate on.
      * @param ui The UI to interact with user.
      * @param storage The storage to save or load tasks.
      * @throws KajiException If an error occurs during command execution.
      */
-    public abstract String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException;
+    @Override
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        return "I don't understand what that means :(";
+    }
 
     /**
-     * Checks if the command is an exit command.
+     * Indicates that this command is not an exit command.
      *
-     * @return true if the command is an exit command, false otherwise.
+     * @return false, as this command is not an exit command.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

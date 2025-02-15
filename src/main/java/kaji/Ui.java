@@ -1,16 +1,16 @@
 package kaji;
 
-import kaji.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringJoiner;
+
+import kaji.task.Task;
 
 /**
  * Deals with interactions with the user.
  */
 public class Ui {
     private static final String INDENTATION = "    ";
-    private static final String SEPARATOR = INDENTATION + "_______________________________________________________";
     // Logo design adapted from https://patorjk.com/software/taag
     private static final String LOGO = INDENTATION
             + "    )               (\n"
@@ -29,37 +29,22 @@ public class Ui {
     /**
      * Displays the welcome page.
      */
-    public void showWelcome() {
-        System.out.println(LOGO);
-        System.out.println(SEPARATOR);
-        System.out.println(GREET);
-        System.out.println(SEPARATOR);
-    }
-
-    /**
-     * Displays a line as separator.
-     */
-    public void showLine() {
-        System.out.println(SEPARATOR);
+    public static String showWelcome() {
+        return GREET;
     }
 
     /**
      * Displays the exit page.
      */
-    public void showExit() {
-        System.out.println(SEPARATOR);
-        System.out.println(EXIT);
-        System.out.println(SEPARATOR);
-
+    public static String showExit() {
+        return EXIT;
     }
 
     /**
      * Displays error for storage load fail.
      */
     public void showLoadingError() {
-        System.out.println(SEPARATOR);
         System.out.println("File could not be loaded...");
-        System.out.println(SEPARATOR);
     }
 
     /**
@@ -68,9 +53,7 @@ public class Ui {
      * @param message the error message to be displayed
      */
     public void showError(String message) {
-        System.out.println(SEPARATOR);
         System.out.println(Ui.INDENTATION + message);
-        System.out.println(SEPARATOR);
     }
 
     /**
@@ -78,13 +61,13 @@ public class Ui {
      *
      * @param taskList the task list containing task added.
      */
-    public void showTaskAdded(ArrayList<Task> taskList) {
-        showLine();
-        System.out.println(Ui.INDENTATION + "This task has been added:");
-        System.out.println(Ui.INDENTATION + " " + taskList.get(taskList.size() - 1).toString());
+    public String showTaskAdded(ArrayList<Task> taskList) {
+        Task addedTask = taskList.get(taskList.size() - 1);
         String taskWord = (taskList.size() == 1) ? "task" : "tasks";
-        System.out.println(Ui.INDENTATION + "There are now " + taskList.size() + " " + taskWord + " in your list.");
-        showLine();
+        return String.format(
+                "%sThis task has been added:%n%s  %s%n%sThere are now %d %s in your list.",
+                INDENTATION, INDENTATION, addedTask.toString(), INDENTATION, taskList.size(), taskWord
+        );
     }
 
     /**
@@ -93,39 +76,36 @@ public class Ui {
      * @param taskList the task list without the deleted task.
      * @param taskDeleted the task that is deleted.
      */
-    public void showTaskDeleted(ArrayList<Task> taskList, Task taskDeleted) {
+    public String showTaskDeleted(ArrayList<Task> taskList, Task taskDeleted) {
         String taskWord = (taskList.size() == 1) ? "task" : "tasks";
-        showLine();
-        System.out.println(Ui.INDENTATION + "This task has been removed:\n"
-                + Ui.INDENTATION + "  " + taskDeleted.toString() + "\n"
-                + Ui.INDENTATION + "There are " + taskList.size() + " " + taskWord + " left in the list.");
-        showLine();
+        return String.format(
+                "%sThis task has been removed:%n%s%s%s%n%sThere are %d %s left in the list.",
+                INDENTATION, INDENTATION, INDENTATION, taskDeleted.toString(), INDENTATION, taskList.size(), taskWord
+        );
     }
 
     /**
      * Displays task successfully marked in the task list.
      *
-     * @param taskList the task list containing the marked task.
      * @param markedTask the task that is marked.
      */
-    public void showMarkedTask(ArrayList<Task> taskList, Task markedTask) {
-        showLine();
-        System.out.println(Ui.INDENTATION + "Well Done! This task is now done:");
-        System.out.println(Ui.INDENTATION + markedTask.toString());
-        showLine();
+    public String showMarkedTask(Task markedTask) {
+        return String.format(
+                "%sWell Done! This task is now done:%n%s%s%s",
+                INDENTATION, INDENTATION, INDENTATION, markedTask.toString()
+        );
     }
 
     /**
      * Displays task successfully unmarked in the task list.
      *
-     * @param taskList the task list containing the unmarked task.
      * @param unmarkedTask the task that is unmarked.
      */
-    public void showUnmarkedTask(ArrayList<Task> taskList, Task unmarkedTask) {
-        showLine();
-        System.out.println(Ui.INDENTATION + "Well Done! This task is now done:");
-        System.out.println(Ui.INDENTATION + unmarkedTask.toString());
-        showLine();
+    public String showUnmarkedTask(Task unmarkedTask) {
+        return String.format(
+                "%sThis task has been unmarked:%n%s%s%s",
+                INDENTATION, INDENTATION, INDENTATION, unmarkedTask.toString()
+        );
     }
 
     /**
@@ -133,13 +113,36 @@ public class Ui {
      *
      * @param taskList the current task list
      */
-    public void showTaskList(TaskList taskList) {
-        showLine();
-        System.out.println(Ui.INDENTATION + "Here are the current tasks in your list:");
+    public String showTaskList(TaskList taskList) {
+        StringJoiner joiner = new StringJoiner("\n");
+        joiner.add(Ui.INDENTATION + "Here are the current tasks in your list:");
         for (int i = 0; i < taskList.taskList.size(); i++) {
-            System.out.println(Ui.INDENTATION + (i+1) + ". " + taskList.taskList.get(i).toString());
+            joiner.add(String.format("%s%d. %s",
+                    Ui.INDENTATION + Ui.INDENTATION, i + 1, taskList.taskList.get(i).toString()));
         }
-        System.out.println(Ui.SEPARATOR);
+        return joiner.toString();
+    }
+
+
+    /**
+     * Displays the tasks that contains a keyword using the find command.
+     *
+     * @param taskList The list of task with keywords.
+     */
+    public String showMatchingTasks(ArrayList<Task> taskList) {
+        StringBuilder reply = new StringBuilder();
+        reply.append(INDENTATION + "Here are the matching tasks:");
+        for (int i = 0; i < taskList.size(); i++) {
+            reply.append(Ui.INDENTATION).append(i + 1).append(". ").append(taskList.get(i).toString());
+        }
+        return reply.toString();
+    }
+
+    /**
+     * Displays message for no matching tasks.
+     */
+    public String showNoMatchingTasks() {
+        return INDENTATION + "There are no matching tasks :(";
     }
 
     /**
