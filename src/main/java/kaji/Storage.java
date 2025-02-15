@@ -1,16 +1,11 @@
 package kaji;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import kaji.task.Deadline;
 import kaji.task.Event;
 import kaji.task.Task;
+
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file
@@ -19,7 +14,6 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
-        assert !filePath.isEmpty() : "FILE_PATH should not be empty";
         this.filePath = filePath;
     }
 
@@ -70,22 +64,22 @@ public class Storage {
     public void save(TaskList taskList) throws KajiException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.taskList) {
-                String taskString = "";
-                if (task.getType().equals("T")) {
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription();
-                }
-                if (task.getType().equals("D")) {
-                    Deadline t = (Deadline) task;
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
-                            + t.getDeadline();
-                }
-                if (task.getType().equals("E")) {
-                    Event e = (Event) task;
-                    taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
-                            + e.getStart() + " | " + e.getEnd();
-                }
-                writer.write(taskString);
-                writer.newLine();
+            String taskString = "";
+            if (task.getType().equals("T")) {
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription();
+            }
+            if (task.getType().equals("D")) {
+                Deadline t = (Deadline) task;
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
+                        + t.getDeadline();
+            }
+            if (task.getType().equals("E")) {
+                Event e = (Event) task;
+                taskString = task.getType() + " | " + task.isDone() + " | " + task.getDescription() + " | "
+                        + e.getStart() + " | " + e.getEnd();
+            }
+            writer.write(taskString);
+            writer.newLine();
             }
         } catch (IOException e) {
             throw new KajiException("Error writing to file: " + e.getMessage());

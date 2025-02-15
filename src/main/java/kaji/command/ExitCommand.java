@@ -18,9 +18,8 @@ public class ExitCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
         storage.save(tasklist);
-        return ui.showExit();
     }
 
     /**

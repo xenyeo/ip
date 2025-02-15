@@ -1,17 +1,10 @@
 package kaji;
 
+import kaji.command.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import kaji.command.AddCommand;
-import kaji.command.Command;
-import kaji.command.DeleteCommand;
-import kaji.command.MarkCommand;
-import kaji.command.UnmarkCommand;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 

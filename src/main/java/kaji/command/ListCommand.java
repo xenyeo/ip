@@ -18,8 +18,8 @@ public class ListCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        return ui.showTaskList(tasklist);
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        ui.showTaskList(tasklist);
     }
 
     /**

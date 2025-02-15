@@ -3,54 +3,45 @@ package kaji;
 import kaji.command.Command;
 
 /**
- * Initializes chatbot
+ * Initializes kaji.Kaji chatbot
  */
 public class Kaji {
 
-    private static final String FILE_PATH = "./data/kaji.txt";
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
 
-    public Kaji() {
-        this.ui = new Ui();
-        this.storage = new Storage(FILE_PATH);
-        loadFile();
-        ui.showWelcome();
-    }
-
-    // For GUI (In Use)
-    /**
-     * Gets the response for the given input.
-     *
-     * @param input the user input
-     * @return the response as a string
-     * @throws KajiException if an error occurs while processing the input
-     */
-    public String getResponse(String input) {
-        try {
-            Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
-        } catch (KajiException e) {
-            return e.getMessage();
-        }
-    }
-
-    /**
-     * Loads tasks from the storage file.
-     *
-     * @throws KajiException if an error occurs while loading the tasks
-     */
-    private void loadFile() {
+    public Kaji(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (KajiException e) {
-            ui.showLoadingError(); // If file cannot be created or loaded fully
+            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    // CLI interface (Not In Use)
+    /**
+     * Starts the chatbot.
+     */
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (KajiException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showExit();
+    }
+
     public static void main(String[] args) {
+        new Kaji("data/tasks.txt").run();
     }
 }

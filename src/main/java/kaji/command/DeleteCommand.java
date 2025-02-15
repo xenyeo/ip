@@ -24,8 +24,8 @@ public class DeleteCommand extends Command {
      * @throws KajiException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
-        return tasklist.deleteTask(taskId, ui);
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException {
+        tasklist.deleteTask(taskId, ui);
     }
 
     /**
@@ -38,11 +38,6 @@ public class DeleteCommand extends Command {
         return false;
     }
 
-    /**
-     * Returns the task id of the task that is deleted.
-     *
-     * @return The task id of the task that is deleted.
-     */
     public int getTaskId() {
         return taskId;
     }

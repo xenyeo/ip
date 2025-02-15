@@ -17,14 +17,12 @@ public abstract class Command {
      * @param storage The storage to save or load tasks.
      * @throws KajiException If an error occurs during command execution.
      */
-    public abstract String execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException;
+    public abstract void execute(TaskList tasklist, Ui ui, Storage storage) throws KajiException;
 
     /**
      * Checks if the command is an exit command.
      *
      * @return true if the command is an exit command, false otherwise.
      */
-    public boolean isExit() {
-        return false;
-    }
+    public boolean isExit() { return false; }
 }

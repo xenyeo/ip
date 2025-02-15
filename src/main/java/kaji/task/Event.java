@@ -13,24 +13,13 @@ public class Event extends Task {
         this.end = end;
     }
 
-    /**
-     * Returns the start time of this event.
-     *
-     * @return the start time as a String
-     */
     public String getStart() {
         return start;
     }
 
-    /**
-     * Returns the end time of this event.
-     *
-     * @return the end time as a String
-     */
     public String getEnd() {
         return end;
     }
-
 
     @Override
     public String toString() {

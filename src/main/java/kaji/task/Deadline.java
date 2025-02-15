@@ -1,10 +1,10 @@
 package kaji.task;
 
+import kaji.KajiException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import kaji.KajiException;
 
 /**
  * Represents a Deadline task with a specific date and time.
@@ -30,11 +30,6 @@ public class Deadline extends Task {
         }
     }
 
-    /**
-     * Returns the deadline of this task.
-     *
-     * @return the deadline as a LocalDateTime object
-     */
     public LocalDateTime getDeadline() {
         return by;
     }
