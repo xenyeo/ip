@@ -2,6 +2,7 @@ package kaji;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,6 +15,8 @@ import javafx.util.Duration;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    @FXML
+    public Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML
