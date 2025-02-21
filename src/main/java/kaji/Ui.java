@@ -27,6 +27,13 @@ public class Ui {
             + INDENTATION + "See you again soon!";
 
     /**
+     * Adds indentation to text.
+     */
+    public String addIndentation() {
+        return INDENTATION;
+    }
+
+    /**
      * Displays the welcome message.
      */
     public String showWelcome() {
@@ -91,7 +98,7 @@ public class Ui {
      */
     public String showMarkedTask(Task markedTask) {
         return String.format(
-                "%sWell Done! This task is now done:%n%s%s%s",
+                "%sYay! You've completed a task:%n%s%s%s",
                 INDENTATION, INDENTATION, INDENTATION, markedTask.toString()
         );
     }
@@ -103,7 +110,7 @@ public class Ui {
      */
     public String showUnmarkedTask(Task unmarkedTask) {
         return String.format(
-                "%sThis task has been unmarked:%n%s%s%s",
+                "%sUh oh, task is now unmarked:%n%s%s%s",
                 INDENTATION, INDENTATION, INDENTATION, unmarkedTask.toString()
         );
     }
@@ -131,7 +138,7 @@ public class Ui {
      */
     public String showMatchingTasks(ArrayList<Task> taskList) {
         StringJoiner joiner = new StringJoiner("\n");
-        joiner.add(INDENTATION + "Here are the matching tasks:");
+        joiner.add(INDENTATION + "Here are the tasks you asked for:");
         for (int i = 0; i < taskList.size(); i++) {
             joiner.add(String.format("%s%d. %s",
                     INDENTATION + INDENTATION, i + 1, taskList.get(i).toString()));

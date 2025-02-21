@@ -33,18 +33,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getMochiDialog(ui.showWelcome(), kajiImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Kaji instance */
     public void setKaji(Kaji k) {
         kaji = k;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Kaji's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText() + ui.addIndentation();
         String response = kaji.getResponse(input);
 
         dialogContainer.getChildren().addAll(
