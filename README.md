@@ -1,26 +1,39 @@
-# Duke project template
+# <span style="color:red">Kaji</span> :fire:
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Mochi On Fire](src/main/resources/images/DaMochiOnFire.png)
 
-## Setting up in Intellij
+<span style="color:red">Kaji</span> (Fire in japanese) manages all your tasks with fire for you so you can do things with fire (aka passion).
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
+<span style="color:red">Kaji</span> frees your mind of having to remember things you need to do. It's,
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- text-based
+- easy to learn
+- ~~FAST~~ _SUPER_ FAST to use
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+And it is **FREE**!
+
+### Features:
+- Add tasks (todo, deadline, event)
+- Tag tasks into groups
+- Persistent task storage
+- Reminders (coming soon)
+- List based on tags (coming soon)
+### Command Summary
+| Action   | Format, Examples                                                                         |
+|----------|------------------------------------------------------------------------------------------|
+| Todo     | todo task<br> eg. todo math hw                                                           |
+| Deadline | deadline task /by yyyy-MM-dd HH:mm<br> eg. deadline math assignment /by 2025-02-21 23:59 |
+| Event    | event task /from from /to to<br> eg. event fundraising /from 2025-02-22 0800 /to 1200    |
+| Mark     | mark task_id<br> eg. mark 1                                                              |
+| Unmark   | unmark task_id<br> eg.unmark 1                                                           |
+| Delete   | delete task_id<br> eg. delete 1                                                          |
+| Tag      | tag task_id<br> eg. tag 1                                                                |
+| Untag    | untag task_id<br> eg. untag 1                                                            |
+| Find     | find pattern<br> eg. find math                                                           |
+| List     | list                                                                                     |
+
+*Take note that task_id must be referred using list
+
+---
+

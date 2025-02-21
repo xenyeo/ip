@@ -80,7 +80,7 @@ public class Parser {
         String validPattern = ".+\\s+/by\\s+.+";
         String errorMsg = String.format("""
                 %sInvalid deadline command!
-                %sUsage: Deadline <task> /by yyyy-MM-dd HH:mm
+                %sUsage: deadline <task> /by yyyy-MM-dd HH:mm
                 %sExample: deadline math assignment /by 2025-02-21 23:59""",
                 ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
         if (commandParts.length == 1 || !commandParts[1].matches(validPattern)) {
