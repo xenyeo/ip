@@ -55,15 +55,6 @@ public class Ui {
     }
 
     /**
-     * Displays the error message caught by exceptions
-     *
-     * @param message the error message to be displayed
-     */
-    public String showError(String message) {
-        return INDENTATION + message;
-    }
-
-    /**
      * Displays confirmation message if task is successfully added to task list.
      *
      * @param taskList the task list containing task added.

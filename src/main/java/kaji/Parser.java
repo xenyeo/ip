@@ -20,6 +20,9 @@ import kaji.command.UntagCommand;
  * Deals with making sense of the user command.
  */
 public class Parser {
+
+    private static final Ui ui = new Ui();
+
     /**
      * Parses the full command string and returns the corresponding command object.
      *
@@ -56,7 +59,12 @@ public class Parser {
      */
     private static Command parseTodoCommand(String[] commandParts) throws KajiException {
         if (commandParts.length == 1) {
-            throw new KajiException("Invalid todo command");
+            String errorMsg = String.format("""
+                    %sInvalid todo command!
+                    %sUsage: todo <task>
+                    %sExample: todo math hw""",
+                    ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+            throw new KajiException(errorMsg);
         }
         return new AddCommand("T", commandParts[1]);
     }
@@ -70,8 +78,13 @@ public class Parser {
      */
     private static Command parseDeadlineCommand(String[] commandParts) throws KajiException {
         String validPattern = ".+\\s+/by\\s+.+";
+        String errorMsg = String.format("""
+                %sInvalid deadline command!
+                %sUsage: Deadline <task> /by yyyy-MM-dd HH:mm
+                %sExample: deadline math assignment /by 2025-02-21 23:59""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
         if (commandParts.length == 1 || !commandParts[1].matches(validPattern)) {
-            throw new KajiException("Invalid deadline command");
+            throw new KajiException(errorMsg);
         }
         try {
             String[] parts = commandParts[1].split(" /by ");
@@ -80,7 +93,7 @@ public class Parser {
             String formattedDateTime = LocalDateTime.parse(parts[1], inputFormatter).format(outputFormatter);
             return new AddCommand("D", parts[0] + " /by " + formattedDateTime);
         } catch (DateTimeParseException e) {
-            throw new KajiException("Invalid date & time format");
+            throw new KajiException(errorMsg);
         }
     }
 
@@ -94,7 +107,12 @@ public class Parser {
     private static Command parseEventCommand(String[] commandParts) throws KajiException {
         String validPattern = ".+\\s+/from\\s+.+\\s+/to.+";
         if (commandParts.length == 1 || !commandParts[1].matches(validPattern)) {
-            throw new KajiException("Invalid event command");
+            String errorMsg = String.format("""
+                    %sInvalid event command!
+                    %sUsage: event <task> /from <from> /to <to>
+                    %sExample: event fundraising /from 2025-02-22 0800 /to 1200""",
+                    ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+            throw new KajiException(errorMsg);
         }
         return new AddCommand("E", commandParts[1]);
     }
@@ -107,10 +125,14 @@ public class Parser {
      * @throws KajiException If the mark command is invalid.
      */
     private static Command parseMarkCommand(String[] commandParts) throws KajiException {
-        if (commandParts.length == 1) {
-            throw new KajiException("Invalid mark command\nUsage: mark <task>");
-        } else if (!commandParts[1].matches("\\d+")) {
-            throw new KajiException("Invalid task list number");
+        String errorMsg = String.format("""
+                %sInvalid mark command!
+                %sUsage: mark <task_id>
+                %sExample: mark 1
+                %sNote that task_id must be valid, refer to list.""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+        if (commandParts.length == 1 || !commandParts[1].matches("\\d+")) {
+            throw new KajiException(errorMsg);
         }
         return new MarkCommand(Integer.parseInt(commandParts[1]));
     }
@@ -123,10 +145,14 @@ public class Parser {
      * @throws KajiException If the unmark command is invalid.
      */
     private static Command parseUnmarkCommand(String[] commandParts) throws KajiException {
-        if (commandParts.length == 1) {
-            throw new KajiException("Invalid unmark command\nUsage: unmark <task>");
-        } else if (!commandParts[1].matches("\\d+")) {
-            throw new KajiException("Invalid task list number");
+        String errorMsg = String.format("""
+                %sInvalid unmark command!
+                %sUsage: unmark <task_id>
+                %sExample: unmark 1
+                %sNote that task_id must be valid, refer to list.""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+        if (commandParts.length == 1 || !commandParts[1].matches("\\d+")) {
+            throw new KajiException(errorMsg);
         }
         return new UnmarkCommand(Integer.parseInt(commandParts[1]));
     }
@@ -139,10 +165,14 @@ public class Parser {
      * @throws KajiException If the delete command is invalid.
      */
     private static Command parseDeleteCommand(String[] commandParts) throws KajiException {
-        if (commandParts.length == 1) {
-            throw new KajiException("Invalid delete command");
-        } else if (!commandParts[1].matches("\\d+")) {
-            throw new KajiException("Invalid task list number");
+        String errorMsg = String.format("""
+                %sInvalid delete command!
+                %sUsage: delete <task_id>
+                %sExample: delete 1
+                %sNote that task_id must be valid, refer to list.""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+        if (commandParts.length == 1 || !commandParts[1].matches("\\d+")) {
+            throw new KajiException(errorMsg);
         }
         return new DeleteCommand(Integer.parseInt(commandParts[1]));
     }
@@ -155,8 +185,13 @@ public class Parser {
      * @throws KajiException If the find command is invalid.
      */
     private static Command parseFindCommand(String[] commandParts) throws KajiException {
+        String errorMsg = String.format("""
+                %sInvalid find command!
+                %sUsage: find <pattern>
+                %sExample: find math""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
         if (commandParts.length == 1) {
-            throw new KajiException("Invalid find command");
+            throw new KajiException(errorMsg);
         }
         return new FindCommand(commandParts[1]);
     }
@@ -170,16 +205,21 @@ public class Parser {
      * @throws KajiException If the tag command is invalid.
      */
     private static Command parseTagCommand(String[] commandParts) throws KajiException {
+        String errorMsg = String.format("""
+                %sInvalid tag command!
+                %sUsage: tag <task_id> <tag_name>
+                %sExample: tag 1 urgent
+                %sNote that task_id must be valid, refer to list.""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+
         if (commandParts.length == 1) {
-            throw new KajiException("Invalid tag command");
+            throw new KajiException(errorMsg);
         }
 
         String[] parts = commandParts[1].split(" ");
 
-        if (!parts[0].matches("\\d+")) {
-            throw new KajiException("Invalid task list number");
-        } else if (parts.length == 1) {
-            throw new KajiException("Invalid tag command");
+        if (!parts[0].matches("\\d+") || parts.length ==1) {
+            throw new KajiException(errorMsg);
         }
 
         return new TagCommand(Integer.parseInt(parts[0]), parts[1]);
@@ -193,16 +233,21 @@ public class Parser {
      * @throws KajiException If the untag command is invalid.
      */
     private static Command parseUntagCommand(String[] commandParts) throws KajiException {
+        String errorMsg = String.format("""
+                %sInvalid untag command!
+                %sUsage: untag <task_id> <tag_name>
+                %sExample: untag 1 urgent
+                %sNote that task_id must be valid, refer to list.""",
+                ui.addIndentation(), ui.addIndentation(), ui.addIndentation(), ui.addIndentation());
+
         if (commandParts.length == 1) {
-            throw new KajiException("Invalid untag command");
+            throw new KajiException(errorMsg);
         }
 
         String[] parts = commandParts[1].split(" ");
 
-        if (!parts[0].matches("\\d+")) {
+        if (!parts[0].matches("\\d+") || parts.length == 1) {
             throw new KajiException("Invalid task list number");
-        } else if (parts.length == 1) {
-            throw new KajiException("Invalid tag command");
         }
 
         return new UntagCommand(Integer.parseInt(parts[0]), parts[1]);
