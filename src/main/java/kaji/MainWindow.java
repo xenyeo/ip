@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getMochiDialog(response, kajiImage)
         );
 
-        if (input.equals("bye")) {
+        if (input.trim().equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2-second delay
             delay.setOnFinished(event -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();
