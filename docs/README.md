@@ -16,7 +16,6 @@ And it is **FREE**!
 
 ## Features
 
----
 - Add tasks (todo, deadline, event)
 - Tag tasks into groups
 - Persistent task storage
@@ -25,7 +24,6 @@ And it is **FREE**!
 
 ## Command Summary
 
----
 | Action   | Format, Examples                                                                         |
 |----------|------------------------------------------------------------------------------------------|
 | Todo     | todo task<br> eg. todo math hw                                                           |
