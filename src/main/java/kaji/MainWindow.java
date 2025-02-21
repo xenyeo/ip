@@ -2,7 +2,6 @@ package kaji;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,19 +20,17 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Kaji kaji;
     private final Ui ui = new Ui();
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaPeach.png"));
+    private final Image kajiImage = new Image(this.getClass().getResourceAsStream("/images/DaMochi.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getMochiDialog(ui.showWelcome(), kajiImage));
     }
 
     /** Injects the Duke instance */
@@ -46,13 +43,13 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws KajiException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = kaji.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getMochiDialog(response, kajiImage)
         );
 
         if (input.equals("bye")) {
