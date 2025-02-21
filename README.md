@@ -6,7 +6,6 @@ The project template was provided as a base, and further inspiration was drawn f
 (which means "passion" in Japanese). The goal is to manage and complete tasks with enthusiasm and dedication.
 ## Setting up in Intellij
 
----
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
 1. Open Intellij (if you are not in the welcome screen, click ```File``` > ```Close Project``` to close the existing project first)
