@@ -44,11 +44,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText() + ui.addIndentation();
+        String input = userInput.getText();
         String response = kaji.getResponse(input);
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog(input + ui.addIndentation(), userImage),
                 DialogBox.getMochiDialog(response, kajiImage)
         );
 
