@@ -24,6 +24,11 @@ public class Tag {
     }
 
     @Override
+    public int hashCode() {
+        return tagName.hashCode();
+    }
+
+    @Override
     public String toString() {
         return tagName;
     }

@@ -192,6 +192,9 @@ public class TaskList {
             throw new KajiException("Invalid task id");
         }
         Task currentTask = taskList.get(taskId - 1);
+        if (!currentTask.containsTag(tagName)) {
+            return ui.showTagNotFound(tagName);
+        }
         currentTask.removeTag(tagName);
         return ui.showTagRemoved(currentTask, tagName);
     }

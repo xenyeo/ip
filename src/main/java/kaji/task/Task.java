@@ -102,11 +102,26 @@ public class Task {
                 .orElse("");
     }
 
+    /**
+     * Adds multiple tags to the task.
+     *
+     * @param tags A comma-separated string of tag names to be added.
+     */
     public void addAllTags(String tags) {
         String[] tagList = tags.split(", ");
         for (String tag : tagList) {
             this.addTag(tag);
         }
+    }
+
+    /**
+     * Checks if the task contains a specific tag.
+     *
+     * @param tagName The name of the tag to check.
+     * @return true if the task contains the tag, false otherwise.
+     */
+    public boolean containsTag(String tagName) {
+        return tags.contains(new Tag(tagName));
     }
 
     /**

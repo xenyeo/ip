@@ -173,6 +173,13 @@ public class Ui {
     }
 
     /**
+     * Displays a message when a tag is not found in the task.
+     */
+    public String showTagNotFound(String tagName) {
+        return String.format("%sTag '%s' not found in the task.", INDENTATION, tagName);
+    }
+
+    /**
      * Reads the command entered by user.
      *
      * @return user command in the form of a String.
