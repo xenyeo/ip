@@ -23,6 +23,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Kaji Chatbot");
+            stage.setMinWidth(400);
+            stage.setMinHeight(620);
             fxmlLoader.<MainWindow>getController().setKaji(kaji);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
